@@ -33,6 +33,14 @@ font pango:Hack Regular 10, DejaVu Sans Mono 10
 bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+10 i3blocks 
 bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Control Volume
+bindsym $mod+KP_Multiply exec playerctl play-pause
+bindsym $mod+KP_Add exec amixer set 'Master' 5%+
+bindsym $mod+KP_Subtract exec amixer set 'Master' 5%-
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -201,11 +209,6 @@ bindsym $m+Tab exec rofi -show window
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 bindsym $mod+Shift+w exec 'chromium ; slack ; spotify ; postman'
-
-# Control Volume
-bindsym $mod+KP_Multiply exec playerctl play-pause
-bindsym $mod+KP_Add exec amixer set 'Master' 5%+
-bindsym $mod+KP_Subtract exec amixer set 'Master' 5%-
 
 # Border Shortcut
 bindsym $mod+t border normal 0
