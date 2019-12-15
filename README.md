@@ -11,6 +11,7 @@ The depencies installations works only with Ubuntu and Arch Linux for now, feel 
 
 To install follow this steps:
 
+- Clone the repo and *cd* to the project
 - If the depencies are not installed, run `./install_dependencies.sh`
 - After that, run `./install.sh` to finish your installation
 - Your actual config will be renamed to config.bkp in case you wan't your configs back
