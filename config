@@ -186,10 +186,9 @@ bar {
 bindsym Print exec scrot 'Cheese_%a-%d%b%y_%H.%M.png' -e 'viewnior ~/$f'
 bindsym Shift+Print exec gnome-screenshot -i 
 bindsym $m+Control+l exec i3lock-fancy
-bindsym $mod+$m+l exec /home/$USER/.i3/i3lock-multimonitor/lock 
-bindsym $mod+Shift+f exec firefox
-bindsym $mod+Shift+s exec spotify
-bindsym $m+Control+e exec emacs
+# bindsym $mod+Shift+f exec firefox
+# bindsym $mod+Shift+s exec spotify
+# bindsym $m+Control+e exec emacs
 
 # kill focused window
 bindsym $mod+c kill
@@ -215,15 +214,18 @@ bindsym $mod+u border none
 
 # Execution when open i3wm
 exec --no-startup-id nm-applet
-exec --no-startup-id firefox
-exec --no-startup-id gnome-terminal
 exec --no-startup-id blueman-applet
 exec --no-startup-id pa-applet
 exec --no-startup-id pulseaudio -D
-exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
-exec --no-startup-id slack
-exec --no-startup-id thunderbird
-exec --no-startup-id dropbox start
-exec --no-startup-id feh --bg-scale /home/vinimmelo/Pictures/backgrounds/i3wm.png
+
+# Feel free to tweak your startup applications
+#
+# exec --no-startup-id firefox
+# exec --no-startup-id gnome-terminal
+# exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
+# exec --no-startup-id slack
+# exec --no-startup-id thunderbird
+# exec --no-startup-id dropbox start
+# exec --no-startup-id feh --bg-scale /home/vinimmelo/Pictures/backgrounds/i3wm.png
 
 # Personal Configs Bellow
