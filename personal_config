@@ -222,18 +222,35 @@ bindsym $mod+u border none
 
 # Execution when open i3wm
 exec --no-startup-id nm-applet
+exec --no-startup-id firefox
+exec --no-startup-id gnome-terminal
 exec --no-startup-id blueman-applet
 exec --no-startup-id pa-applet
 exec --no-startup-id pulseaudio -D
+exec --no-startup-id xrandr --output HDMI-0 --auto --right-of eDP-1-1
+exec --no-startup-id slack
+exec --no-startup-id thunderbird
+exec --no-startup-id dropbox start
+exec --no-startup-id feh --bg-scale /home/vinimmelo/Pictures/backgrounds/i3wm.png
+exec --no-startup-id emacs
+exec --no-startup-id spotify
 
-# Feel free to tweak your startup applications
-#
-# exec --no-startup-id firefox
-# exec --no-startup-id gnome-terminal
-# exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
-# exec --no-startup-id slack
-# exec --no-startup-id thunderbird
-# exec --no-startup-id dropbox start
-# exec --no-startup-id feh --bg-scale /home/vinimmelo/Pictures/backgrounds/i3wm.png
+# client.focused          #e39866 #1e1e20 #e39866 #e39866 #e39866
+# client.unfocused        #333333 #5f676a #ffffff #484e50 #5f676a
+# client.focused_inactive #bfbfbf #162025 #bfbfbf #75404b #75404b
+# client.urgent           #c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7
+# client.placeholder      #c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7
 
-# Personal Configs Bellow
+client.focused              #bf616a #2f343f #d8dee8 #bf616a #d8dee8
+client.focused_inactive     #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.unfocused            #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.urgent               #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.placeholder          #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.background           #2f343f
+
+exec xinput set-prop 11 337 1
+exec xinput set-prop 11 338 1
+exec xinput set-prop 13 337 1
+exec xinput set-prop 13 338 1
+exec setxkbmap -option caps:ctrl_modifier
+exec xset s off
