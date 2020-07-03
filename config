@@ -12,9 +12,14 @@
 # Window borders
 new_window pixel 1
 for_window [class="^.*"] border pixel 2
-
+# for_window [class="^.*"] border pixel 0
+ 
 set $mod Mod4
 set $m Mod1
+set $up l
+set $down k
+set $left j
+set $right ccedilla
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -30,9 +35,9 @@ font pango:Hack Regular 10, DejaVu Sans Mono 10
 
 # Use pactl to adjust volume in PulseAudio.
 # change volume or toggle mute
-bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+10 i3blocks 
-bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- && pkill -RTMIN+10 i3blocks
-bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+10 i3blocks
+# bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+10 i3blocks 
+# bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- && pkill -RTMIN+10 i3blocks
+# bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
@@ -46,7 +51,7 @@ bindsym $mod+KP_Subtract exec amixer set 'Master' 5%-
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec termite
 
 # start dmenu (a program launcher)
 bindsym $mod+Shift+d exec dmenu_run
@@ -55,10 +60,10 @@ bindsym $mod+Shift+d exec dmenu_run
 # installed.
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+ccedilla focus right
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -67,10 +72,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+ccedilla move right
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -156,10 +161,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym ccedilla resize grow width 10 px or 10 ppt
+        bindsym $left resize shrink width 10 px or 10 ppt
+        bindsym $down resize grow height 10 px or 10 ppt
+        bindsym $up resize shrink height 10 px or 10 ppt
+        bindsym $right resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -175,27 +180,51 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-  font pango:Source Sans Pro-10 12
-  status_command SCRIPT_DIR=~/.config/i3blocks i3blocks -c ~/.config/i3blocks/config
-       colors {
-        background #2f343f
-        statusline #2f343f
-        separator #4b5262
+# set primary gruvbox colorscheme colors
+set $bg #282828
+set $red #cc241d
+set $green #98971a
+set $yellow #d79921
+set $blue #458588
+set $purple #b16286
+set $aqua #689d68
+set $gray #a89984
+set $darkgray #1d2021
 
-        # colour of border, background, and text
-        focused_workspace       #2f343f #bf616a #d8dee8
-        active_workspace        #2f343f #2f343f #d8dee8
-        inactive_workspace      #2f343f #2f343f #d8dee8
-        urgent_workspacei       #2f343f #ebcb8b #2f343f
-    }
-}
+# Polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# # Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+# bar {
+#   font pango:Hack Regular 12
+#   position bottom
+#   status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
+#        colors {
+#         background #2d2d2d
+#         statusline #cccccc
+#         focused_workspace #99cc99 #99cc99 #000000 #282828
+#         inactive_workspace #2d2d2d #2d2d2d #999999 #928374
+#         active_workspace #333333 #333333 #ffffff #928374
+#         urgent_workspace #f2777a #f2777a #ffffff #ebdbb2
+#         separator #515151
+#     }
+# }
+
+# Start of window title bars & borders section
+# client.focused          $green $green $darkgray $purple $darkgray
+# client.focused #689d6a #689d6a #282828 #282828
+# client.focused_inactive #1d2021 #1d2021 #928374 #282828
+# client.unfocused #32302f #32302f #928374 #282828
+# client.urgent #cc241d #cc241d #ebdbb2 #282828
+
+# client.focused          $blue $blue $darkgray $purple $darkgray
+# client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
+# client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
+# client.urgent           $red $red $white $red $red
 
 # common apps keybinds
-bindsym Print exec scrot 'Cheese_%a-%d%b%y_%H.%M.png' -e 'viewnior ~/$f'
-bindsym Shift+Print exec gnome-screenshot -i 
+bindsym Print exec xfce4-screenshooter
+bindsym Shift+Print exec xfce4-screenshooter -r 
 bindsym $m+Control+l exec i3lock-fancy
 bindsym $mod+$m+l exec /home/$USER/.i3/i3lock-multimonitor/lock 
 bindsym $mod+Shift+f exec firefox
@@ -207,17 +236,18 @@ bindsym $mod+c kill
 bindsym $m+F4 kill
 
 # Keyboards SHortcuts
-bindsym $mod+d exec rofi -show drun -font 'Hack Regular 12'
+bindsym $mod+d exec rofi -show drun -lines 12 -columns 2 -hide-scrollbar -eh 1.3 \
+        -opacity "85" -bw 0 -font 'Hack Regular 14' -icon-theme "Papirus" -show-icons \
+        -padding 40 -border 2px -bw 4 -eh 1 -separator-style solid
 # bindsym $mod+d exec rofi -show run -lines 20 -eh 1.3 -opacity "85" -bw 0 -font "System San Francisco Display 10"
 bindsym $mod+Tab exec rofi -show window
 bindsym $m+Tab exec rofi -show window
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10
-bindsym $mod+Shift+w exec 'chromium ; slack ; spotify ; postman'
 
 # Border Shortcut
 bindsym $mod+t border normal 0
-bindsym $mod+y border pixel 2
+bindsym $mod+y border pixel 3
 bindsym $mod+u border none
 
 # Execution when open i3wm
@@ -227,13 +257,21 @@ exec --no-startup-id pa-applet
 exec --no-startup-id pulseaudio -D
 
 # Feel free to tweak your startup applications
-#
-# exec --no-startup-id firefox
-# exec --no-startup-id gnome-terminal
+exec --no-startup-id setxkbmap -option caps:escape
+exec --no-startup-id emacs
+exec --no-startup-id emacs --daemon
+exec --no-startup-id dropbox start
+exec --no-startup-id optimus-manager-qt
+exec --no-startup-id termite
+exec --no-startup-id "sleep 7; firefox"
+exec --no-startup-id "sleep 7; slack"
+
+exec_always --no-startup-id numlockx on
 # exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
-# exec --no-startup-id slack
-# exec --no-startup-id thunderbird
-# exec --no-startup-id dropbox start
 # exec --no-startup-id feh --bg-scale /home/vinimmelo/Pictures/backgrounds/i3wm.png
 
 # Personal Configs Bellow
+client.focused #99cc99 #99cc99 #000000 #2d2d2d
+client.focused_inactive #393939 #393939 #888888 #292d2e
+client.unfocused #2d2d2d #2d2d2d #999999 #292d2e
+client.urgent #2f343a #900000 #ffffff #900000
