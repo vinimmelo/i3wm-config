@@ -24,13 +24,14 @@ else
     OS=$(uname -s)
     VER=$(uname -r)
 fi
+echo "OS: $OS"
 
 if [ $OS = "Debian" -o $OS = "Ubuntu" ]; then
     INSTALL="apt-get install -y"
-elif [ $OS = "Arch" ]; then
-    INSTALL="pacman -Suy"
+elif [ $OS = "Arch" -o $OS = "Manjaro Linux" ]; then
+    INSTALL="pacman -S"
 else
-    INSTALL="apt-get install -y"
+    INSTALL="apt-get install"
 fi
 echo "$OS and $VER"
 
