@@ -46,6 +46,7 @@ bindsym XF86AudioLowerVolume exec amixer set 'Master' 5%-
 bindsym $mod+KP_Multiply exec playerctl play-pause
 bindsym $mod+KP_Add exec amixer set 'Master' 5%+
 bindsym $mod+KP_Subtract exec amixer set 'Master' 5%-
+bindsym $mod+p exec playerctl play-pause
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -192,21 +193,25 @@ set $gray #a89984
 set $darkgray #1d2021
 
 # # Start i3bar to display a workspace bar (plus the system information i3status
+# Polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
 # finds out, if available)
-# bar {
-#   font pango:Hack Regular 12
-#   position bottom
-#   status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
-#        colors {
-#         background #2d2d2d
-#         statusline #cccccc
-#         focused_workspace #99cc99 #99cc99 #000000 #282828
-#         inactive_workspace #2d2d2d #2d2d2d #999999 #928374
-#         active_workspace #333333 #333333 #ffffff #928374
-#         urgent_workspace #f2777a #f2777a #ffffff #ebdbb2
-#         separator #515151
-#     }
-# }
+bar {
+  output eDP-1-1
+  font pango:Hack Regular 12
+  position bottom
+  status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
+       colors {
+        background #2d2d2d
+        statusline #cccccc
+        focused_workspace #99cc99 #99cc99 #000000 #282828
+        inactive_workspace #2d2d2d #2d2d2d #999999 #928374
+        active_workspace #333333 #333333 #ffffff #928374
+        urgent_workspace #f2777a #f2777a #ffffff #ebdbb2
+        separator #515151
+    }
+}
 
 # Start of window title bars & borders section
 # client.focused          $green $green $darkgray $purple $darkgray
@@ -221,10 +226,10 @@ set $darkgray #1d2021
 # client.urgent           $red $red $white $red $red
 
 # common apps keybinds
-bindsym Print exec xfce4-screenshooter
-bindsym Shift+Print exec xfce4-screenshooter -r 
-bindsym $m+Control+l exec i3lock-fancy
-bindsym $mod+$m+l exec /home/$USER/.i3/i3lock-multimonitor/lock 
+bindsym Print exec gnome-screenshot -ia
+bindsym Shift+Print exec gnome-screenshot -ia 
+bindsym $m+Control+l exec /home/$USER/.config/i3/i3lock-fancy-multimonitor/lock -p
+bindsym $mod+$m+l exec /home/$USER/.config/i3/i3lock-fancy-multimonitor/lock -p
 bindsym $mod+Shift+f exec firefox
 bindsym $mod+Shift+s exec spotify
 bindsym $m+Control+e exec emacs
@@ -253,19 +258,18 @@ bindsym $mod+u border none
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id pa-applet
-
-# Polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # Feel free to tweak your startup applications
 exec --no-startup-id setxkbmap -option caps:escape
-exec --no-startup-id emacs --daemon
 exec --no-startup-id dropbox start
 exec --no-startup-id optimus-manager-qt
 exec --no-startup-id termite
 exec --no-startup-id "sleep 7; firefox"
 exec --no-startup-id "sleep 7; slack"
+exec --no-startup-id "sleep 7; mailspring"
 
+exec_always xrandr --output HDMI-0 --auto --right-of eDP-1-1
 exec_always xfce4-power-manager
 exec_always --no-startup-id numlockx on
 # exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
